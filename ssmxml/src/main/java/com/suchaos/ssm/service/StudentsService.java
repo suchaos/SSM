@@ -2,6 +2,8 @@ package com.suchaos.ssm.service;
 
 import com.suchaos.ssm.po.Students;
 
+import java.util.List;
+
 /**
  * StudentsService
  *
@@ -10,4 +12,6 @@ import com.suchaos.ssm.po.Students;
  */
 public interface StudentsService {
     Students getStudentBtId(Long id);
+
+    String getStudentList(int page, int size);
 }

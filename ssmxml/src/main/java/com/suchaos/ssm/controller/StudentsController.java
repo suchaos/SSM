@@ -3,10 +3,8 @@ package com.suchaos.ssm.controller;
 import com.suchaos.ssm.po.Students;
 import com.suchaos.ssm.service.StudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * StudentsController
@@ -23,5 +21,13 @@ public class StudentsController {
     @GetMapping("/{id}")
     public Students getStudentById(@PathVariable Long id) {
         return studentsService.getStudentBtId(id);
+    }
+
+    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getStudentList(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                 @RequestParam(value = "size", required = false, defaultValue = "0") int size) {
+        String result = studentsService.getStudentList(page, size);
+        System.out.println(result);
+        return result;
     }
 }

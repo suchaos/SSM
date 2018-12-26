@@ -1,37 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- 读取java配置文件，替换占位符数据 -->
-	<context:property-placeholder location="classpath:db.properties" />
+    <!-- 读取java配置文件，替换占位符数据 -->
+    <context:property-placeholder location="classpath:db.properties"/>
 
-	<!-- 配置数据源 -->
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="${db.driverClassName}" />
-		<property name="url" value="${db.url}" />
-		<property name="username" value="${db.username}" />
-		<property name="password" value="${db.password}" />
-	</bean>
-	<!-- 配置SqlSessionFactory -->
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<!-- 注入dataSource -->
-		<property name="dataSource" ref="dataSource"/>
+    <!-- 配置数据源 -->
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${db.driverClassName}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+    <!-- 配置SqlSessionFactory -->
+    <bean id="sqlSessionFactory"
+          class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入dataSource -->
+        <property name="dataSource" ref="dataSource"/>
 
-		<!-- mybatis批量别名配置 -->
-		<property name="typeAliasesPackage" value="com.suchaos.ssm.po"/>
+        <!-- mybatis批量别名配置 -->
+        <property name="typeAliasesPackage" value="com.suchaos.ssm.po"/>
 
-	</bean>
+        <!--配置分页插件-->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!--使用下面的方式配置参数，一行配置一个 -->
+                        <value>
+                            helperDialect=mysql
+                            <!--配置 pageSizeZero 为 true， 配置后，当 pageSize=0 或者 RowBounds.limit = 0 就会查询出全部的结果。-->
+                            <!--pageSizeZero=true-->
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
 
-	<!-- 批量代理对象的生成 -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<!-- 指定需要生成代理的接口所在的包名 -->
-		<property name="basePackage" value="com.suchaos.ssm.mapper"/>
-	</bean>
+    <!-- 批量代理对象的生成 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 指定需要生成代理的接口所在的包名 -->
+        <property name="basePackage" value="com.suchaos.ssm.mapper"/>
+    </bean>
 </beans>
