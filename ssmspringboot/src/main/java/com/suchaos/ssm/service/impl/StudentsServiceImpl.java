@@ -10,6 +10,7 @@ import com.suchaos.ssm.model.StudentsExample;
 import com.suchaos.ssm.service.StudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,11 +26,13 @@ public class StudentsServiceImpl implements StudentsService {
     private StudentsMapper studentsMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public Students getStudentBtId(Long id) {
         return studentsMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public String getStudentList(int page, int size) {
         PageHelper.startPage(page, size);
         StudentsExample example = new StudentsExample();
