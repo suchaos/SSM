@@ -3,6 +3,7 @@ package com.suchaos.ssm.controller;
 import com.suchaos.ssm.po.Students;
 import com.suchaos.ssm.service.StudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,12 @@ public class StudentsController {
     @Autowired
     private StudentsService studentsService;
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
     @GetMapping("/{id}")
     public Students getStudentById(@PathVariable Long id) {
+        System.out.println(applicationContext);
         return studentsService.getStudentBtId(id);
     }
 

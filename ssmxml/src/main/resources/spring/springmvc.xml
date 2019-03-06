@@ -3,12 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 处理器类的扫描 -->
     <context:component-scan base-package="com.suchaos.ssm.controller"/>
@@ -16,6 +19,8 @@
     <!-- 配置注解的适配器和映射器，同时还注入了很多其他的bean -->
     <!-- 处理器适配器会去调用conversion-service -->
     <mvc:annotation-driven/>
+
+    <aop:aspectj-autoproxy/>
 
     <!-- 显式的配置视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

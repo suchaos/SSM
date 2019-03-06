@@ -9,6 +9,7 @@ import com.suchaos.ssm.po.Students;
 import com.suchaos.ssm.po.StudentsExample;
 import com.suchaos.ssm.service.StudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,11 +22,16 @@ import java.util.List;
  */
 @Service
 public class StudentsServiceImpl implements StudentsService {
+
     @Autowired
     private StudentsMapper studentsMapper;
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
     @Override
     public Students getStudentBtId(Long id) {
+        System.out.println(applicationContext);
         return studentsMapper.selectByPrimaryKey(id);
     }
 

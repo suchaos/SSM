@@ -42,11 +42,11 @@
 	</tx:advice>
 
 	<!-- 基于AspectJ + XML方式实现声明式事务 -->
-	<aop:config>
-		<!-- aop:advisor标签使用的是传统spring aop开发方式实现的 -->
-		<!-- spring已经实现了该增强功能，spring使用的是实现MethodInterceptor接口的方式实现的 -->
+	<!--<aop:config>
+		&lt;!&ndash; aop:advisor标签使用的是传统spring aop开发方式实现的 &ndash;&gt;
+		&lt;!&ndash; spring已经实现了该增强功能，spring使用的是实现MethodInterceptor接口的方式实现的 &ndash;&gt;
 		<aop:advisor advice-ref="txAdvice"
 			pointcut="execution(* *..*.*ServiceImpl.*(..))" />
-	</aop:config>
+	</aop:config>-->
 
 </beans>
